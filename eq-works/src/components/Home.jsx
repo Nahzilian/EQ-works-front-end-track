@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React from 'react'
 
 // React bootstrap
 import Container from 'react-bootstrap/Container'
@@ -31,7 +31,7 @@ function Dash() {
                                 <Nav.Link eventKey="first">
                                     <Row>
                                         <Col sm={2}>
-                                            <i class="fas fa-chart-pie"></i>
+                                            <i className="fas fa-chart-pie"></i>
                                         </Col>
                                         <Col>
                                             <strong>Overview</strong>
@@ -43,7 +43,7 @@ function Dash() {
                                 <Nav.Link eventKey="second">
                                     <Row>
                                         <Col sm={2}>
-                                            <i class="fas fa-map-marked-alt"></i>
+                                            <i className="fas fa-map-marked-alt"></i>
                                         </Col>
                                         <Col>
                                             <strong>Map</strong>
@@ -61,7 +61,7 @@ function Dash() {
                                 <Charts />
                             </Tab.Pane>
                             <Tab.Pane eventKey="second">
-                                Hello
+                                <Map />
                             </Tab.Pane>
                         </Tab.Content>
                     </Col>

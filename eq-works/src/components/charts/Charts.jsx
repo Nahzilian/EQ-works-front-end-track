@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import axios from 'axios'
-import VerticalBar from './VerticalBar'
-import MultiAxisLine from './MultiAxisLine'
+
+import StatCharts from './StatCharts'
+import EventCharts from './EventCharts'
+
 export default function Charts() {
-    const [eventDataDaily, setDataDaily] = useState(null);
+    const [eventDataDaily, setEventDaily] = useState(null);
     const [eventDataHourly, setEventHourly] = useState(null);
     const [statDataDaily, setStatDaily] = useState(null);
     const [statDataHourly,setStatHourly] = useState(null)
@@ -12,7 +14,7 @@ export default function Charts() {
         try{
             axios.get("http://localhost:5555/events/daily").then((res) => {
             const temp = res.data;
-            setDataDaily(temp)
+            setEventDaily(temp)
         })
         }catch(err){
             console.error(err)
@@ -29,7 +31,6 @@ export default function Charts() {
             axios.get("http://localhost:5555/events/hourly").then((res) => {
             const temp = res.data;
             setEventHourly(temp)
-            console.log(temp)
         })
         }catch(err){
             console.error(err)
@@ -38,7 +39,6 @@ export default function Charts() {
             axios.get("http://localhost:5555/stats/hourly").then((res) => {
             const temp = res.data;
             setStatHourly(temp)
-            console.log(temp)
         })
         }catch(err){
             console.error(err)
@@ -49,10 +49,8 @@ export default function Charts() {
     },[])
     return (
         <div>
-            {eventDataHourly? <VerticalBar data = {eventDataHourly}/>:null}
-            {eventDataDaily?<VerticalBar data = {eventDataDaily}/>:null}
-            {statDataDaily? <MultiAxisLine data = {statDataDaily}/>:null}
-            {statDataHourly? <MultiAxisLine data = {statDataHourly}/>:null}
+            {/* <StatCharts statDaily = {statDataDaily} statDataHourly={statDataHourly} /> */}
+            <EventCharts eventDaily = {eventDataDaily} eventDataHourly = {eventDataHourly}/>
         </div>
     )
 }

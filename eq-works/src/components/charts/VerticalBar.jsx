@@ -29,13 +29,13 @@ export default function VerticalBar(props) {
         },
     }
     return (
-        <div>
+        <div className = "chart-wrapper">
             <div className='header'>
-                <h1 className='title'>Vertical Bar Chart</h1>
+                <h1 className='title'>{props.title|| null}</h1>
                 <div className='links'>
                 </div>
             </div>
-            <Bar data={data} options={options} />
+            <Bar data={data} options={options} width={"100vw"} height={"50vh"}/>
         </div>
     )
 }

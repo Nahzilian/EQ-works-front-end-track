@@ -18,3 +18,10 @@ body{
 .tab-content-wrapper{
     background-color: #f0f0f0;
 }
+
+.chart-wrapper{
+    background-color: white;
+    padding:20px;
+    border-radius: 5px;
+    width: 100%;
+}

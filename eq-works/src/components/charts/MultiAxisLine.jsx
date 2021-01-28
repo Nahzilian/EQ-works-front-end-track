@@ -50,7 +50,7 @@ export default function MultiAxisLine(props) {
                 {
                     type: 'linear',
                     display: true,
-                    position: 'right',
+                    position: 'left',
                     id: 'y-axis-3',
                     gridLines: {
                         drawOnArea: false,
@@ -61,9 +61,9 @@ export default function MultiAxisLine(props) {
     }
     
     return (
-        <div>
+        <div className = "chart-wrapper">
             <div className='header'>
-                <h1 className='title'>Multi Axis Line Chart</h1>
+                <h1 className='title'>{props.title|| null}</h1>
                 <div className='links'>
                 </div>
             </div>

@@ -4,7 +4,7 @@ import 'leaflet/dist/leaflet.css';
 export default function Map(props) {
     const position = [51.505, -0.09]
     return (
-        <MapContainer center={position} zoom={13} scrollWheelZoom={false} style={{ height: "500px", width: "100%" }}>
+        <MapContainer center={position} zoom={13} scrollWheelZoom={false} style={{ height: "50%", width: "100%" }}>
             <TileLayer
                 attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -15,6 +15,5 @@ export default function Map(props) {
                     </Popup>
             </Marker>
         </MapContainer>
-
     )
 }
