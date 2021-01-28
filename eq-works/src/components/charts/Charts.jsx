@@ -8,21 +8,10 @@ export default function Charts() {
     const [statDataDaily, setStatDaily] = useState(null);
     const [statDataHourly,setStatHourly] = useState(null)
     
-    
-    const timeCoverter = (time) => {
-        const d = new Date(time);
-        var curr_date = d.getDate();
-        var curr_month = d.getMonth() + 1;
-        var curr_year = d.getFullYear();
-        return curr_date + "-" + curr_month + "-" + curr_year;
-    }
     const loadData = () => {
         try{
             axios.get("http://localhost:5555/events/daily").then((res) => {
             const temp = res.data;
-            for (var item of temp) {
-                item.date = timeCoverter(item.date)
-            }
             setDataDaily(temp)
         })
         }catch(err){
@@ -31,9 +20,6 @@ export default function Charts() {
         try{
             axios.get("http://localhost:5555/stats/daily").then((res) => {
             const temp = res.data;
-            for (var item of temp) {
-                item.date = timeCoverter(item.date)
-            }
             setStatDaily(temp)
         })
         }catch(err){
@@ -42,9 +28,6 @@ export default function Charts() {
         try{
             axios.get("http://localhost:5555/events/hourly").then((res) => {
             const temp = res.data;
-            for (var item of temp) {
-                item.date = timeCoverter(item.date)
-            }
             setEventHourly(temp)
             console.log(temp)
         })
@@ -54,9 +37,6 @@ export default function Charts() {
         try{
             axios.get("http://localhost:5555/stats/hourly").then((res) => {
             const temp = res.data;
-            for (var item of temp) {
-                item.date = timeCoverter(item.date)
-            }
             setStatHourly(temp)
             console.log(temp)
         })
