@@ -19,7 +19,7 @@ function Dash() {
         <Container fluid>
             <Tab.Container id="left-tabs-example" defaultActiveKey="first">
                 <Row>
-                    <Col sm={2} className="side-bar">
+                    <Col sm={2} className="side-bar fixed-side-bar">
                         <div>
                             <h1>
                                 EQ Works
