@@ -7,7 +7,7 @@ import Row from 'react-bootstrap/Row'
 import Tab from 'react-bootstrap/Tab'
 import Nav from 'react-bootstrap/Nav'
 import { withRouter } from "react-router";
-
+import 'leaflet/dist/leaflet.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Customed Bootstrap react components

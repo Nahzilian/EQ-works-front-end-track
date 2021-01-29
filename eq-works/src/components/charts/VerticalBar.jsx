@@ -3,17 +3,23 @@ import { Bar } from '@reactchartjs/react-chart.js'
 
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
-import DatePicker from 'react-date-picker';
 import Dropdown from 'react-bootstrap/Dropdown';
 import DropdownButton from 'react-bootstrap/DropdownButton';
 
+
 export default function VerticalBar(props) {
     const [timeVar, setVarTime] = useState([]);
-    const [value, onChange] = useState(new Date());
-    const [time,setTime] = useState("Hour");
+    const [date, onChangeDate] = useState(props.min);
+    const [time,setTime] = useState("00:00");
 
     const timeSelector = (value) => {
-        setTime(value)
+        setTime(value);
+        props.repopulateRecall(parseInt(value.slice(0,2)))
+    }
+    const dateSelector = (val) => {
+        onChangeDate(val);
+        console.log(val)
+        props.repopulateRecall(val)
     }
     const data = {
         labels: props.labels,
@@ -62,9 +68,11 @@ export default function VerticalBar(props) {
                     </Col>
                     {props.daily ?
                         <Col style={{ textAlign: 'right' }}>
-                            <DatePicker
-                                onChange={onChange}
-                                value={value} />
+                            <input type="date"
+                                onChange={(e)=>dateSelector(e.target.value)}
+                                value={date}
+                                min={props.min}
+                                max={props.max}/>
                         </Col>
                         : null}
                     {props.hourly ?
