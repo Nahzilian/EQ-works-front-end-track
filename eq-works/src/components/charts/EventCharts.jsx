@@ -28,7 +28,7 @@ function filledByDate(data) {
     var res = []
     var date = data[0].date
     var count = 0;
-    for (var i = 0; i < 25; i++) {
+    for (var i = 0; i < 24; i++) {
         if (count < data.length) {
             if (data[count].hour !== i) {
                 res.push({
@@ -101,12 +101,12 @@ export default function EventCharts() {
     }
 
     const repopulateDateData = (key) => {
-        console.log(reformattedHourly)
         setEventHourly(filledByDate(reformattedHourly[key]))
     }
 
     return (
         <Container fluid>
+            <br/>
             <Col sm={12}>
                 <Row>
                     <Col>

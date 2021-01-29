@@ -41,6 +41,13 @@ body{
     -moz-box-shadow: 4px 5px 8px -2px rgba(145,145,145,1);
     box-shadow: 4px 5px 8px -2px rgba(145,145,145,1);
 }
+
+.navigate{
+    background-color: white;
+    border-radius: 5px;
+    width: 100%;
+}
+
 .dropdown-menu.show {
     height: 200px !important;
     overflow-y: auto;
