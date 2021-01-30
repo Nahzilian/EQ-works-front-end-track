@@ -86,7 +86,9 @@ export default function StatCharts() {
                     {statDataDaily? <MultiAxisLine data = {statDataDaily} title={"Daily Statistic data"} labels={statDataDaily.map(x => x.date)}/>:  <Spinner animation="border" variant="info" />}
                 </Row>
                 <br/>
-                <Row>{statDataHourly? <MultiAxisLine data = {statDataHourly} title={"Hourly Statistic data"} hourly min={minday} max={maxday} labels={statDataHourly.map(x => x.hour)} repopulateRecall={repopulateDateData}/>:  <Spinner animation="border" variant="info" />}</Row>
+                <Row>
+                    {statDataHourly? <MultiAxisLine data = {statDataHourly} title={"Hourly Statistic data"} hourly min={minday} max={maxday} labels={statDataHourly.map(x => x.hour)} repopulateRecall={repopulateDateData}/>:  <Spinner animation="border" variant="info" />}
+                </Row>
             </Col>
         </Container>
     )

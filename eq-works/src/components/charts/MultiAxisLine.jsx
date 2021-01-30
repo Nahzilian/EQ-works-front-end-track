@@ -6,7 +6,6 @@ export default function MultiAxisLine(props) {
     const [date, onChangeDate] = useState(props.min);
     const dateSelector = (val) => {
         onChangeDate(val);
-        console.log(val)
         props.repopulateRecall(val)
     }
     const data = {
@@ -85,7 +84,7 @@ export default function MultiAxisLine(props) {
                         : null}
                 </Row>
             </div>
-            <Line data={data} options={options} width={"100vw"} height={"40vh"} />
+            <Line data={data} options={options} width={"100vw"} height={"25vh"} />
         </div>
     )
 }

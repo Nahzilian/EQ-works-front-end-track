@@ -7,12 +7,11 @@ import Row from 'react-bootstrap/Row'
 import Tab from 'react-bootstrap/Tab'
 import Nav from 'react-bootstrap/Nav'
 import { withRouter } from "react-router";
-import 'leaflet/dist/leaflet.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Customed Bootstrap react components
 import Charts from './charts/Charts'
-import Map from './map/Map'
+import LeafletMap from './map/PoiMap'
 
 function Dash() {
     return (
@@ -61,7 +60,7 @@ function Dash() {
                                 <Charts />
                             </Tab.Pane>
                             <Tab.Pane eventKey="second">
-                                <Map />
+                                <LeafletMap />
                             </Tab.Pane>
                         </Tab.Content>
                     </Col>

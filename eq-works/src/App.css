@@ -52,3 +52,8 @@ body{
     height: 200px !important;
     overflow-y: auto;
 }
+
+.leaflet-container{
+    width: 81vw;
+    height: 100vh;
+}
