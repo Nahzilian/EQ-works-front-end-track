@@ -11,7 +11,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Customed Bootstrap react components
 import Charts from './charts/Charts'
-import LeafletMap from './map/PoiMap'
+import MapMain from './map/MapMain'
 
 function Dash() {
     return (
@@ -60,7 +60,7 @@ function Dash() {
                                 <Charts />
                             </Tab.Pane>
                             <Tab.Pane eventKey="second">
-                                <LeafletMap />
+                                <MapMain />
                             </Tab.Pane>
                         </Tab.Content>
                     </Col>
