@@ -12,6 +12,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 // Customed Bootstrap react components
 import Charts from './charts/Charts'
 import MapMain from './map/MapMain'
+import MainTable from './tables/MainTable'
 
 function Dash() {
     return (
@@ -51,6 +52,19 @@ function Dash() {
                                 </Nav.Link>
 
                             </Nav.Item>
+                            <Nav.Item>
+                                <Nav.Link eventKey="third">
+                                    <Row>
+                                        <Col sm={2}>
+                                            <i class="fas fa-table"></i>
+                                        </Col>
+                                        <Col>
+                                            <strong>Tables</strong>
+                                        </Col>
+                                    </Row>
+                                </Nav.Link>
+
+                            </Nav.Item>
                         </Nav>
                     </Col>
                     <Col sm={10} className="tab-content-wrapper">
@@ -61,6 +75,9 @@ function Dash() {
                             </Tab.Pane>
                             <Tab.Pane eventKey="second">
                                 <MapMain />
+                            </Tab.Pane>
+                            <Tab.Pane eventKey="third">
+                                <MainTable />
                             </Tab.Pane>
                         </Tab.Content>
                     </Col>

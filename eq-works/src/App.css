@@ -57,3 +57,19 @@ body{
     width: 81vw;
     height: 100vh;
 }
+.search-result{
+    width: 100%;
+    position: absolute;
+    z-index: 100;
+    background-color: white;   
+}
+.search-wrapper{
+    position: relative;
+    width: 100%;
+    height: 0;
+}
+
+.with-data{
+    background-color: #d6186d !important;
+    color:white !important;
+}

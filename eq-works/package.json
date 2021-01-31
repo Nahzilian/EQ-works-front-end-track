@@ -10,6 +10,7 @@
     "axios": "^0.21.1",
     "bootstrap": "^4.6.0",
     "chart.js": "^2.9.4",
+    "fuse.js": "^6.4.6",
     "pigeon-maps": "^0.17.0",
     "react-bootstrap": "^1.4.3",
     "react-router-dom": "^5.2.0",
