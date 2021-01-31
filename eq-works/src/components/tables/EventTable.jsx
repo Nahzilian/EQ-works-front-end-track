@@ -19,31 +19,31 @@ function populatePages(data) {
 
 function chunkageData(data, pagesLength) {
     var res = [];
-    for(var i = 0; i < pagesLength; i++){
-        res.push(data.splice(0,pageLimit))
+    for (var i = 0; i < pagesLength; i++) {
+        res.push(data.splice(0, pageLimit))
     }
     return res
 }
 
 function paginationData(pageIndex, active, recall, inc) {
-    if(pageIndex.length > 0){
-        if(pageIndex.length <= 6){
-            return (<Pagination style={{ float: 'right' }}>
-                <Pagination.Prev onClick={()=>inc(-1)}/>
-                {pageIndex.length > 0 ? pageIndex.map((x) => <Pagination.Item active={active === x?true:false} onClick={()=> recall(x)}>{x+1}</Pagination.Item>) : null}
-                <Pagination.Next onClick={()=>inc(1)}/>
+    if (pageIndex.length > 0) {
+        if (pageIndex.length <= 6) {
+            return (<Pagination>
+                <Pagination.Prev onClick={() => inc(-1)} />
+                {pageIndex.length > 0 ? pageIndex.map((x) => <Pagination.Item active={active === x ? true : false} onClick={() => recall(x)}>{x + 1}</Pagination.Item>) : null}
+                <Pagination.Next onClick={() => inc(1)} />
             </Pagination>)
         }
-        return (<Pagination style={{ float: 'right' }}>
-            <Pagination.Prev onClick={()=>inc(-1)}/>
-            {active >0 && active < pageIndex.length-3? <Pagination.Ellipsis />:null}
-            {pageIndex.length > 0 && active < pageIndex.length-3 ? pageIndex.slice(active,active+3).map((x) => <Pagination.Item active={active === x?true:false} onClick={()=> recall(x)}>{x+1}</Pagination.Item>) : null}
+        return (<Pagination>
+            <Pagination.Prev onClick={() => inc(-1)} />
+            {active > 0 && active < pageIndex.length - 3 ? <Pagination.Ellipsis /> : null}
+            {pageIndex.length > 0 && active < pageIndex.length - 3 ? pageIndex.slice(active, active + 3).map((x) => <Pagination.Item active={active === x ? true : false} onClick={() => recall(x)}>{x + 1}</Pagination.Item>) : null}
             <Pagination.Ellipsis />
-            {pageIndex.length > 0 ? pageIndex.slice(pageIndex.length - 3,pageIndex.length).map((x) => <Pagination.Item active={active === x?true:false} onClick={()=> recall(x)}>{x+1}</Pagination.Item>) : null}
-            <Pagination.Next onClick={()=>inc(1)}/>
+            {pageIndex.length > 0 ? pageIndex.slice(pageIndex.length - 3, pageIndex.length).map((x) => <Pagination.Item active={active === x ? true : false} onClick={() => recall(x)}>{x + 1}</Pagination.Item>) : null}
+            <Pagination.Next onClick={() => inc(1)} />
         </Pagination>)
     }
-    return (<Pagination style={{ float: 'right' }}>
+    return (<Pagination>
         <Pagination.Prev />
         <Pagination.Item active>{1}</Pagination.Item>
         <Pagination.Next />
@@ -52,22 +52,22 @@ function paginationData(pageIndex, active, recall, inc) {
 
 export default function EventTable(props) {
     const [pageIndex, setPageIndex] = useState();
-    const [data,setData] = useState();
+    const [data, setData] = useState();
     const [curPage, setCurPage] = useState(0);
-    const [date, onChangeDate] = useState(props.min);    
+    const [date, onChangeDate] = useState(props.min);
     const repopulateData = (page) => {
         setCurPage(page)
     }
     const incrementPage = (val) => {
-        if(curPage < pageIndex[pageIndex.length-1] && curPage > 0) setCurPage(prev => prev + val);
-        else if(curPage === pageIndex[pageIndex.length-1] && val < 0) setCurPage(prev => prev + val);
-        else if(curPage === 0 && val > 0) setCurPage(prev => prev + val);
+        if (curPage < pageIndex[pageIndex.length - 1] && curPage > 0) setCurPage(prev => prev + val);
+        else if (curPage === pageIndex[pageIndex.length - 1] && val < 0) setCurPage(prev => prev + val);
+        else if (curPage === 0 && val > 0) setCurPage(prev => prev + val);
     }
     useEffect(() => {
         var indexData = populatePages(props.data);
         setPageIndex(indexData);
         setData(chunkageData(props.data, indexData.length))
-    },[props.data])
+    }, [props.data])
 
     const dateSelector = (val) => {
         onChangeDate(val);
@@ -76,21 +76,20 @@ export default function EventTable(props) {
     return (
         <div className="chart-wrapper">
             <Row>
-                {props.title?<Col>
-                    {props.title}
-                </Col>:null}
-                {props.hourly?<Col>
+                {props.title ? <Col>
+                    <h4>{props.title}</h4>
+                </Col> : null}
+                <Col style={{textAlign:"right"}}>
+                {props.hourly ? 
                     <input type="date"
                         onChange={(e) => dateSelector(e.target.value)}
                         value={date}
                         min={props.min}
                         max={props.max} />
-                </Col>:null}
-                <Col>
-                    {pageIndex ?paginationData(pageIndex, curPage, repopulateData, incrementPage):null}
-                </Col>
+                 : null}
+            </Col>
             </Row>
-
+            <Row className="justify-content-md-center">{pageIndex ? paginationData(pageIndex, curPage, repopulateData, incrementPage) : null}</Row>
             <Table striped bordered hover responsive width={"100%"}>
                 <thead>
                     <tr>
