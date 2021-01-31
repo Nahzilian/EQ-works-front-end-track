@@ -38,12 +38,13 @@ const options = {
 export default function MainTable() {
 
     const [poiData, setPoiData] = useState(null);
-    const [currentPOI, setCurPoi] = useState(null);
     const [searchPattern, setSearchPattern] = useState('');
     const [fuse, setFuse] = useState(new Fuse([], options));
     const [searched, setSearched] = useState([]);
     const [dailyEventCurPoi, setEventDailyPoi] = useState(null);
     const [eventCurPoi, setEventCurPoi] = useState(null);
+
+    const [curPoi, setCurPoi] =useState(1);
 
     const [dailyStatCurPoi, setStatDailyPoi] = useState(null);
     const [statCurPoi, setStatCurPoi] = useState(null);
@@ -54,6 +55,7 @@ export default function MainTable() {
 
     const repopulateDateData = (key) => {
         if (reformattedHourly[key]) setEventCurPoi(reformattedHourly[key])
+        else setEventCurPoi([])
     }
 
     const loadAPI = () => {
@@ -61,16 +63,15 @@ export default function MainTable() {
             axios.get("http://localhost:5555/poi").then((res) => {
                 const temp = res.data;
                 setPoiData(temp); // Format: lat long
-                setCurPoi(temp[0]);
                 setFuse(new Fuse(temp, options));
             })
         } catch (err) {
             console.error(err)
         }
-        loadDataByPoi(1);
+        loadDataByPoi();
     }
 
-    const loadDataByPoi = (value) => {
+    const loadDataByPoi = () => {
         try {
             axios.get(`http://localhost:5555/events/hourly?loc=true`).then((res) => {
                 const temp = res.data;
@@ -126,7 +127,7 @@ export default function MainTable() {
 
     return (
         <Container fluid>
-            <br/>
+            <br />
             <Col>
                 <Row>
                     <Dropdown style={{ width: "100%" }}>
@@ -135,40 +136,28 @@ export default function MainTable() {
                                 placeholder="POI Location"
                                 aria-label="Default"
                                 aria-describedby="inputGroup-sizing-default"
-                                value={searchPattern}
+                                value={searchPattern?searchPattern:poiData?poiData[curPoi -1].name:null}
                                 onChange={(e) => lookUp(e.target.value)}
                             />
                         </Dropdown.Toggle>
                         <Dropdown.Menu style={{ width: "100%" }} >
-                            {searched.length > 0 ? searched.map(x => <Dropdown.Item className="results" onSelect={() => loadDataByPoi(x.item.poi_id)}>{x.item.name}</Dropdown.Item>) :
-                                poiData ? poiData.map(x => <Dropdown.Item className="results" onSelect={() => loadDataByPoi(x.poi_id)}>{x.name}</Dropdown.Item>) : null}
+                            {searched.length > 0 ? searched.map(x => <Dropdown.Item className="results" onSelect={() => setCurPoi(x.item.poi_id)}>{x.item.name}</Dropdown.Item>) :
+                                poiData ? poiData.map(x => <Dropdown.Item className="results" onSelect={() => setCurPoi(x.poi_id)}>{x.name}</Dropdown.Item>) : null}
                         </Dropdown.Menu>
                     </Dropdown>
                 </Row>
-                <br/>
+                <br />
                 <Row>
-                    <Col>
-                        <Row>
-                            {dailyEventCurPoi ? <EventTable data={dailyEventCurPoi} min={minday} max={maxday} repopulateRecall={repopulateDateData}/> : null}
-                        </Row>
-                    </Col>
-                    <Col>
-                        <Row>
-                            {eventCurPoi?<EventTable data={eventCurPoi} min={minday} max={maxday} repopulateRecall={repopulateDateData} />:null}
-                        </Row>
-                    </Col>
+                    {dailyEventCurPoi ? <EventTable data={dailyEventCurPoi} min={minday} max={maxday} curPoi = {curPoi} repopulateRecall={repopulateDateData} /> : null}
                 </Row>
                 <Row>
-                    <Col>
-                        <Row>
-                            {dailyStatCurPoi ? <StatTable data={dailyStatCurPoi} /> : null}
-                        </Row>
-                    </Col>
-                    <Col>
-                        <Row>
-                            <StatTable data={statCurPoi} hourly min={minday} max={maxday} repopulateRecall={repopulateDateData} />
-                        </Row>
-                    </Col>
+                    {eventCurPoi ? <EventTable data={eventCurPoi} min={minday} max={maxday} curPoi = {curPoi} hourly repopulateRecall={repopulateDateData} /> : null}
+                </Row>
+                <Row>
+                    {dailyStatCurPoi ? <StatTable data={dailyStatCurPoi} /> : null}
+                </Row>
+                <Row>
+                    <StatTable data={statCurPoi} hourly min={minday} max={maxday} repopulateRecall={repopulateDateData} />
                 </Row>
             </Col>
         </Container>

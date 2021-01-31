@@ -73,3 +73,11 @@ body{
     background-color: #d6186d !important;
     color:white !important;
 }
+.page-link{
+    color: #d6186d !important;
+}
+.page-item.active .page-link{
+    border-color: #d6186d !important;
+    background-color: #d6186d !important;
+    color:white !important;
+}

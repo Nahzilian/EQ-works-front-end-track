@@ -56,7 +56,7 @@ function Dash() {
                                 <Nav.Link eventKey="third">
                                     <Row>
                                         <Col sm={2}>
-                                            <i class="fas fa-table"></i>
+                                            <i className="fas fa-table"></i>
                                         </Col>
                                         <Col>
                                             <strong>Tables</strong>
