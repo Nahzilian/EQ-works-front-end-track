@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap');
+
+body{
+    color:rgb(26, 26, 26);
+    font-family: 'Oswald', sans-serif;
+}
+.fixed-side-bar{
+    position: sticky !important;
+    top:0;
+    left: 0;
+}
+.side-bar{
+    height: 100vh;
+    -webkit-box-shadow: 4px 5px 8px -2px rgba(145,145,145,1);
+    -moz-box-shadow: 4px 5px 8px -2px rgba(145,145,145,1);
+    box-shadow: 4px 5px 8px -2px rgba(145,145,145,1);
+}
+.nav-pills .nav-link{
+    color:rgb(26, 26, 26);
+}
+
+
+.btn-primary ,.nav-pills .nav-link.active{
+    background-color: #d6186d !important;
+}
+
+.btn-primary{
+    border-color: #d6186d !important;
+}
+.tab-content-wrapper{
+    background-color: #f0f0f0;
+}
+
+.chart-wrapper{
+    background-color: white;
+    padding:20px;
+    border-radius: 5px;
+    width: 100%;
+    height: 100%;
+    -webkit-box-shadow: 4px 5px 8px -2px rgba(145,145,145,1);
+    -moz-box-shadow: 4px 5px 8px -2px rgba(145,145,145,1);
+    box-shadow: 4px 5px 8px -2px rgba(145,145,145,1);
+}
+
+.navigate{
+    background-color: white;
+    border-radius: 5px;
+    width: 100%;
+}
+
+.dropdown-menu.show {
+    height: 200px !important;
+    overflow-y: auto;
+}
+
+.leaflet-container{
+    width: 81vw;
+    height: 100vh;
+}
+.search-result{
+    width: 100%;
+    position: absolute;
+    z-index: 100;
+    background-color: white;   
+}
+.search-wrapper{
+    position: relative;
+    width: 100%;
+    height: 0;
+}
+
+.with-data{
+    background-color: #d6186d !important;
+    color:white !important;
+}
+.page-link{
+    color: #d6186d !important;
+}
+.page-item.active .page-link{
+    border-color: #d6186d !important;
+    background-color: #d6186d !important;
+    color:white !important;
+}
