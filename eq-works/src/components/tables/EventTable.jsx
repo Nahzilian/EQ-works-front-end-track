@@ -26,7 +26,6 @@ function chunkageData(data, pagesLength) {
 }
 
 function paginationData(pageIndex, active, recall, inc) {
-    console.log(active)
     if(pageIndex.length > 0){
         if(pageIndex.length <= 6){
             return (<Pagination style={{ float: 'right' }}>
@@ -37,9 +36,10 @@ function paginationData(pageIndex, active, recall, inc) {
         }
         return (<Pagination style={{ float: 'right' }}>
             <Pagination.Prev onClick={()=>inc(-1)}/>
-            {pageIndex.length > 0 ? pageIndex.splice(0,3).map((x) => <Pagination.Item active={active === x?true:false} onClick={()=> recall(x)}>{x+1}</Pagination.Item>) : null}
+            {active >0 && active < pageIndex.length-3? <Pagination.Ellipsis />:null}
+            {pageIndex.length > 0 && active < pageIndex.length-3 ? pageIndex.slice(active,active+3).map((x) => <Pagination.Item active={active === x?true:false} onClick={()=> recall(x)}>{x+1}</Pagination.Item>) : null}
             <Pagination.Ellipsis />
-            {pageIndex.length > 0 ? pageIndex.splice(pageIndex.length - 4,3).map((x) => <Pagination.Item active={active === x?true:false} onClick={()=> recall(x)}>{x+1}</Pagination.Item>) : null}
+            {pageIndex.length > 0 ? pageIndex.slice(pageIndex.length - 3,pageIndex.length).map((x) => <Pagination.Item active={active === x?true:false} onClick={()=> recall(x)}>{x+1}</Pagination.Item>) : null}
             <Pagination.Next onClick={()=>inc(1)}/>
         </Pagination>)
     }
@@ -76,6 +76,9 @@ export default function EventTable(props) {
     return (
         <div className="chart-wrapper">
             <Row>
+                {props.title?<Col>
+                    {props.title}
+                </Col>:null}
                 {props.hourly?<Col>
                     <input type="date"
                         onChange={(e) => dateSelector(e.target.value)}
