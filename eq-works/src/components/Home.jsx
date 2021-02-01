@@ -29,9 +29,11 @@ function Dash() {
     const [eventDataHourlyTab, setEventDataHourlyTab] = useState(null);
     const [eventDataDailyTab, setEventDataDailyTab] = useState(null);
     const [show, setShow] = useState(false)
+    const baseAPI = process.env.REACT_APP_MODE === 'dev'? process.env.REACT_APP_API_DEV: process.env.REACT_APP_API_PROD
+
     const loadAPI = () => {
         try {
-            axios.get("http://localhost:5555/poi").then((res) => {
+            axios.get(`${baseAPI}poi`).then((res) => {
                 const temp = res.data;
                 setPoiData(temp); // Format: lat long
             })
@@ -40,7 +42,7 @@ function Dash() {
             console.error(err)
         }
         try {
-            axios.get(`http://localhost:5555/events/daily?loc=${false}`).then((res) => {
+            axios.get(`${baseAPI}events/daily?loc=${false}`).then((res) => {
                 const temp = res.data;
                 setEventDataDaily(temp)
             })
@@ -49,7 +51,7 @@ function Dash() {
             console.error(err);
         }
         try {
-            axios.get(`http://localhost:5555/stats/daily?loc=${false}`).then((res) => {
+            axios.get(`${baseAPI}stats/daily?loc=${false}`).then((res) => {
                 const temp = res.data;
                 setStatDataDaily(temp);
             })
@@ -58,7 +60,7 @@ function Dash() {
             console.error(err);
         }
         try {
-            axios.get(`http://localhost:5555/events/hourly?loc=${false}`).then((res) => {
+            axios.get(`${baseAPI}events/hourly?loc=${false}`).then((res) => {
                 const temp = res.data;
                 setEventDataHourly(temp)
 
@@ -68,7 +70,7 @@ function Dash() {
             console.error(err);
         }
         try {
-            axios.get(`http://localhost:5555/stats/hourly?loc=${false}`).then((res) => {
+            axios.get(`${baseAPI}stats/hourly?loc=${false}`).then((res) => {
                 const temp = res.data;
                 setStatDataHourlyTab(temp)
             })
@@ -78,7 +80,7 @@ function Dash() {
         }
 
         try {
-            axios.get(`http://localhost:5555/events/daily?loc=${true}`).then((res) => {
+            axios.get(`${baseAPI}events/daily?loc=${true}`).then((res) => {
                 const temp = res.data;
                 setEventDataDailyTab(temp)
             })
@@ -87,7 +89,7 @@ function Dash() {
             console.error(err);
         }
         try {
-            axios.get(`http://localhost:5555/stats/daily?loc=${true}`).then((res) => {
+            axios.get(`${baseAPI}stats/daily?loc=${true}`).then((res) => {
                 const temp = res.data;
                 setStatDataDailyTab(temp);
             })
@@ -96,7 +98,7 @@ function Dash() {
             console.error(err);
         }
         try {
-            axios.get(`http://localhost:5555/events/hourly?loc=${true}`).then((res) => {
+            axios.get(`${baseAPI}events/hourly?loc=${true}`).then((res) => {
                 const temp = res.data;
                 setEventDataHourlyTab(temp)
 
@@ -106,7 +108,7 @@ function Dash() {
             console.error(err);
         }
         try {
-            axios.get(`http://localhost:5555/stats/hourly?loc=${true}`).then((res) => {
+            axios.get(`${baseAPI}stats/hourly?loc=${true}`).then((res) => {
                 const temp = res.data;
                 setStatDataHourly(temp)
             })
