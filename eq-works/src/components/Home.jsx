@@ -8,6 +8,10 @@ import Tab from 'react-bootstrap/Tab'
 import Nav from 'react-bootstrap/Nav'
 import { withRouter } from "react-router";
 import Spinner from 'react-bootstrap/Spinner'
+import Accordion from 'react-bootstrap/Accordion'
+import Card from 'react-bootstrap/Card'
+import Button from 'react-bootstrap/Button'
+
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Customed Bootstrap react components
@@ -29,7 +33,10 @@ function Dash() {
     const [eventDataHourlyTab, setEventDataHourlyTab] = useState(null);
     const [eventDataDailyTab, setEventDataDailyTab] = useState(null);
     const [show, setShow] = useState(false)
-    const baseAPI = process.env.REACT_APP_MODE === 'dev'? process.env.REACT_APP_API_DEV: process.env.REACT_APP_API_PROD
+
+    const [selectedKey, setSelectedKey] = useState("first");
+
+    const baseAPI = process.env.REACT_APP_MODE === 'dev' ? process.env.REACT_APP_API_DEV : process.env.REACT_APP_API_PROD
 
     const loadAPI = () => {
         try {
@@ -119,15 +126,20 @@ function Dash() {
         }
     }
 
+    const tempTEst = (val) => {
+        console.log(val)
+        setSelectedKey(val)
+    }
+
     useEffect(() => {
         loadAPI();
     }, [])
 
     return (
         <Container fluid>
-            <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+            <Tab.Container id="left-tabs-example" defaultActiveKey={selectedKey} onSelect={(skey) => tempTEst(skey)}>
                 <Row>
-                    <Col sm={2} className="side-bar fixed-side-bar">
+                    <Col sm={12} md={3} lg={3} xl={2} className="side-bar fixed-side-bar">
                         <div>
                             <h1>
                                 EQ Works
@@ -176,11 +188,61 @@ function Dash() {
                             </Nav.Item>
                         </Nav>
                     </Col>
-                    <Col sm={10} className="tab-content-wrapper">
+                    <Col sm={12} className="invisible-blk">
+                        <br/>
+                        <Row>
+                            <Col xs={12} sm={12}><h1>EQ Works</h1></Col>
+                            <Col xs={12} sm={12}>
+                                <Nav justify variant="pills" style={{width:"100%"}}>
+                                    <Nav.Item>
+                                        <Nav.Link eventKey="first">
+                                            <Row>
+                                                <Col xs={12} sm={2}>
+                                                    <i className="fas fa-chart-pie"></i>
+                                                </Col>
+                                                <Col xs={12} sm={10}>
+                                                    <strong>Overview</strong>
+                                                </Col>
+                                            </Row>
+                                        </Nav.Link>
+                                    </Nav.Item>
+
+                                    <Nav.Item>
+                                        <Nav.Link eventKey="second">
+                                            <Row>
+                                                <Col xs={12} sm={2}>
+                                                    <i className="fas fa-table"></i>
+                                                </Col>
+                                                <Col xs={12} sm={10}>
+                                                    <strong>Tables</strong>
+                                                </Col>
+                                            </Row>
+                                        </Nav.Link>
+
+                                    </Nav.Item>
+                                    <Nav.Item>
+                                        <Nav.Link eventKey="third">
+                                            <Row>
+                                                <Col xs={12} sm={2}>
+                                                    <i className="fas fa-map-marked-alt"></i>
+                                                </Col>
+                                                <Col xs={12} sm={10}>
+                                                    <strong>Map</strong>
+                                                </Col>
+                                            </Row>
+                                        </Nav.Link>
+
+                                    </Nav.Item>
+                                </Nav>
+                            </Col>
+                        </Row>
+
+                    </Col>
+                    <Col sm={12} md={9} lg={9} xl={10} className="tab-content-wrapper">
                         <Tab.Content>
                             <Tab.Pane eventKey="first">
-                                {!show && !poiData && !statDataDailyTab && !statDataHourlyTab && !eventDataDailyTab && !eventDataHourlyTab ? 
-                                <AlertBootStrap setShow={setShow} /> : null}
+                                {!show && !poiData && !statDataDailyTab && !statDataHourlyTab && !eventDataDailyTab && !eventDataHourlyTab ?
+                                    <AlertBootStrap setShow={setShow} /> : null}
                                 {statDataDaily && statDataHourly && eventDataDaily && eventDataHourly ?
                                     <Charts statDaily={statDataDaily}
                                         statHourly={statDataHourly}
@@ -188,8 +250,8 @@ function Dash() {
                                         eventHourly={eventDataHourly} /> : null}
                             </Tab.Pane>
                             <Tab.Pane eventKey="second">
-                                {!show && !poiData && !statDataDailyTab && !statDataHourlyTab && !eventDataDailyTab && !eventDataHourlyTab ? 
-                                <AlertBootStrap setShow={setShow} /> : null}
+                                {!show && !poiData && !statDataDailyTab && !statDataHourlyTab && !eventDataDailyTab && !eventDataHourlyTab ?
+                                    <AlertBootStrap setShow={setShow} /> : null}
                                 {poiData && statDataDailyTab && statDataHourlyTab && eventDataDailyTab && eventDataHourlyTab ?
                                     <MainTable poiData={poiData} statDaily={statDataDailyTab}
                                         statHourly={statDataHourlyTab}
@@ -197,8 +259,8 @@ function Dash() {
                                         eventHourly={eventDataHourlyTab} /> : null}
                             </Tab.Pane>
                             <Tab.Pane eventKey="third">
-                                {!show && !poiData && !statDataDailyTab && !statDataHourlyTab && !eventDataDailyTab && !eventDataHourlyTab ? 
-                                <AlertBootStrap setShow={setShow} /> : null}
+                                {!show && !poiData && !statDataDailyTab && !statDataHourlyTab && !eventDataDailyTab && !eventDataHourlyTab ?
+                                    <AlertBootStrap setShow={setShow} /> : null}
                                 {poiData ? <MapMain poiData={poiData} /> : <Spinner animation="border" variant="info" />}
                             </Tab.Pane>
                         </Tab.Content>
