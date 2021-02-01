@@ -18,7 +18,6 @@ export default function VerticalBar(props) {
     }
     const dateSelector = (val) => {
         onChangeDate(val);
-        console.log(val)
         props.repopulateRecall(val)
     }
     const data = {
@@ -44,7 +43,7 @@ export default function VerticalBar(props) {
             }
             setVarTime(temp)
         }
-    }, [])
+    }, [props.hourly])
 
 
 

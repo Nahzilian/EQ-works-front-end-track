@@ -7,7 +7,6 @@ import Pagination from 'react-bootstrap/Pagination'
 const pageLimit = 10;
 function populatePages(data) {
     const length = data && data.length ? Math.floor(data.length / pageLimit) + 1 : 0;
-    console.log(length)
     var res = []
     for (var i = 0; i < length; i++) {
         res.push(i)
@@ -28,16 +27,16 @@ function paginationData(pageIndex, active, recall, inc) {
         if(pageIndex.length <= 6){
             return (<Pagination>
                 <Pagination.Prev onClick={()=>inc(-1)}/>
-                {pageIndex.length > 0 ? pageIndex.map((x) => <Pagination.Item active={active === x?true:false} onClick={()=> recall(x)}>{x+1}</Pagination.Item>) : null}
+                {pageIndex.length > 0 ? pageIndex.map((x,index) => <Pagination.Item key = {index} active={active === x?true:false} onClick={()=> recall(x)}>{x+1}</Pagination.Item>) : null}
                 <Pagination.Next onClick={()=>inc(1)}/>
             </Pagination>)
         }
         return (<Pagination>
             <Pagination.Prev onClick={()=>inc(-1)}/>
             {active >0 && active < pageIndex.length-3? <Pagination.Ellipsis />:null}
-            {pageIndex.length > 0 && active < pageIndex.length-3 ? pageIndex.slice(active,active+3).map((x) => <Pagination.Item active={active === x?true:false} onClick={()=> recall(x)}>{x+1}</Pagination.Item>) : null}
+            {pageIndex.length > 0 && active < pageIndex.length-3 ? pageIndex.slice(active,active+3).map((x,index) => <Pagination.Item key = {index} active={active === x?true:false} onClick={()=> recall(x)}>{x+1}</Pagination.Item>) : null}
             <Pagination.Ellipsis />
-            {pageIndex.length > 0 ? pageIndex.slice(pageIndex.length - 3,pageIndex.length).map((x) => <Pagination.Item active={active === x?true:false} onClick={()=> recall(x)}>{x+1}</Pagination.Item>) : null}
+            {pageIndex.length > 0 ? pageIndex.slice(pageIndex.length - 3,pageIndex.length).map((x,index) => <Pagination.Item key = {index} active={active === x?true:false} onClick={()=> recall(x)}>{x+1}</Pagination.Item>) : null}
             <Pagination.Next onClick={()=>inc(1)}/>
         </Pagination>)
     }
@@ -101,7 +100,7 @@ export default function StatTable(props) {
                     </tr>
                 </thead>
                 <tbody>
-                    {data ? data[curPage].map((x, index) => <tr className={x.poi_id === props.curPoi ? "with-data" : ""}>
+                    {data ? data[curPage].map((x, index) => <tr key={index} className={x.poi_id === props.curPoi ? "with-data" : ""}>
                         <td>{index+1}</td>
                         <td>{x.name}</td>
                         <td>{x.date}</td>

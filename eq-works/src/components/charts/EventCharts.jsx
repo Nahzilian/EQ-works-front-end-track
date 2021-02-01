@@ -5,7 +5,6 @@ import Spinner from 'react-bootstrap/Spinner'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
-import axios from 'axios'
 
 function mappingHourlyData(data, key) {
     return data.reduce(function (rv, x) {
@@ -52,7 +51,7 @@ function filledByDate(data) {
     return res
 }
 
-export default function EventCharts() {
+export default function EventCharts(props) {
     const [eventDataDaily, setEventDaily] = useState(null);
     const [eventDataHourly, setEventHourly] = useState(null);
     const [weeklyAvg, setWeeklyAvg] = useState(0);
@@ -62,39 +61,28 @@ export default function EventCharts() {
     const [minday, setMinDay] = useState(null);
     const [maxday, setMaxDay] = useState(null);
     useEffect(() => {
-        loadAPI();
-    }, [])
-    const loadAPI = () => {
-        try {
-            axios.get("http://localhost:5555/events/daily").then((res) => {
-                const temp = res.data;
-                setMinDay(temp[0].date)
-                setMaxDay(temp[temp.length - 1].date)
-                setEventDaily(temp)
-                var avg = temp.map(x => x.events).reduce((a, b) => parseInt(a) + parseInt(b), 0);
-                setWeeklyAvg((avg / 7).toFixed(2));
-                const max = temp.reduce(function (prev, current) {
-                    return (prev.events > current.events) ? prev : current
-                })
+        if (props.eventDaily && props.eventDaily.length > 0) {
+            const temp = props.eventDaily;
+            setMinDay(temp[0].date)
+            setMaxDay(temp[temp.length - 1].date)
+            setEventDaily(temp)
+            var avg = temp.map(x => x.events).reduce((a, b) => parseInt(a) + parseInt(b), 0);
+            setWeeklyAvg((avg / 7).toFixed(2));
+            const max = temp.reduce(function (prev, current) {
+                return (prev.events > current.events) ? prev : current
+            })
+            setDayWithMax(max)
+        }
 
-                setDayWithMax(max)
-            })
-        } catch (err) {
-            console.error(err)
+        if (props.eventHourly && props.eventHourly.length > 0) {
+            const temp = props.eventHourly;
+            const dataByDate = mappingHourlyData(temp, "date");
+            const listOfDate = Object.keys(dataByDate)
+            setReformattedHourly(dataByDate)
+            setEventHourly(filledByDate(dataByDate[listOfDate[0]]));
+            setDataByTime(mappingByHour(dataByDate, 0))
         }
-        try {
-            axios.get("http://localhost:5555/events/hourly").then((res) => {
-                const temp = res.data;
-                const dataByDate = mappingHourlyData(temp, "date");
-                const listOfDate = Object.keys(dataByDate)
-                setReformattedHourly(dataByDate)
-                setEventHourly(filledByDate(dataByDate[listOfDate[0]]));
-                setDataByTime(mappingByHour(dataByDate, 0))
-            })
-        } catch (err) {
-            console.error(err)
-        }
-    }
+    }, [props.eventDaily, props.eventHourly])
 
     const repopulateData = (value) => {
         setDataByTime(mappingByHour(reformattedHourly, value))
