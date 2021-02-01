@@ -73,7 +73,7 @@ export default function EventCharts(props) {
             })
             setDayWithMax(max)
         }
-        //loadAPI();
+
         if (props.eventHourly && props.eventHourly.length > 0) {
             const temp = props.eventHourly;
             const dataByDate = mappingHourlyData(temp, "date");
@@ -82,7 +82,7 @@ export default function EventCharts(props) {
             setEventHourly(filledByDate(dataByDate[listOfDate[0]]));
             setDataByTime(mappingByHour(dataByDate, 0))
         }
-    }, [])
+    }, [props.eventDaily, props.statDaily])
 
     const repopulateData = (value) => {
         setDataByTime(mappingByHour(reformattedHourly, value))

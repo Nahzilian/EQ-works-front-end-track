@@ -35,7 +35,7 @@ const options = {
     ]
 };
 
-export default function MainTable() {
+export default function MainTable(props) {
 
     const [poiData, setPoiData] = useState(null);
     const [searchPattern, setSearchPattern] = useState('');
@@ -45,7 +45,7 @@ export default function MainTable() {
     const [dailyEventCurPoi, setEventDailyPoi] = useState(null);
     const [eventCurPoi, setEventCurPoi] = useState(null);
 
-    const [curPoi, setCurPoi] =useState(1);
+    const [curPoi, setCurPoi] = useState(1);
 
     const [dailyStatCurPoi, setStatDailyPoi] = useState(null);
     const [statCurPoi, setStatCurPoi] = useState(null);
@@ -54,7 +54,7 @@ export default function MainTable() {
     const [maxday, setMaxDay] = useState(null);
     const [statminday, setstatMinDay] = useState(null);
     const [statmaxday, setstatMaxDay] = useState(null);
-    
+
     const [reformattedEventHourly, setReformattedEventHourly] = useState(null);
     const [reformattedStatHourly, setReformattedStatHourly] = useState(null);
 
@@ -68,73 +68,44 @@ export default function MainTable() {
         else setStatCurPoi([])
     }
 
-    const loadAPI = () => {
-        try {
-            axios.get("http://localhost:5555/poi").then((res) => {
-                const temp = res.data;
-                setPoiData(temp); // Format: lat long
-                setFuse(new Fuse(temp, options));
-                setSearchPattern(temp[curPoi -1].name)
-            })
-        } catch (err) {
-            console.error(err)
-        }
-        loadDataByPoi();
-    }
-
-    const loadDataByPoi = () => {
-        try {
-            axios.get(`http://localhost:5555/events/hourly?loc=true`).then((res) => {
-                const temp = res.data;
-                const dataByDate = mappingHourlyData(temp, "date");
-                const listOfDate = Object.keys(dataByDate);
-                setReformattedEventHourly(dataByDate);
-                setEventCurPoi(dataByDate[listOfDate[0]]);
-                setMinDay(temp[0].date);
-                setMaxDay(temp[temp.length - 1].date);
-            })
-        } catch (err) {
-            console.error(err);
-        }
-        try {
-            axios.get(`http://localhost:5555/events/daily?loc=true`).then((res) => {
-                const temp = res.data;
-                setEventDailyPoi(temp)
-            })
-        } catch (err) {
-            console.error(err);
-        }
-        try {
-            axios.get(`http://localhost:5555/stats/daily?loc=true`).then((res) => {
-                const temp = res.data;
-                setStatDailyPoi(temp);
-            })
-        } catch (err) {
-            console.error(err);
-        }
-        try {
-            axios.get(`http://localhost:5555/stats/hourly?loc=true`).then((res) => {
-                const temp = res.data;
-                const dataByDate = mappingHourlyData(temp, "date");
-                const listOfDate = Object.keys(dataByDate);
-                setReformattedStatHourly(dataByDate);
-                setStatCurPoi(dataByDate[listOfDate[0]]);
-                setstatMinDay(temp[0].date);
-                setstatMaxDay(temp[temp.length - 1].date);
-            })
-        } catch (err) {
-            console.error(err)
-        }
-    }
-
     const lookUp = (value) => {
         setSearchPattern(value)
         setSearched(fuse.search(value))
     }
 
     useEffect(() => {
-        loadAPI();
-    }, []);
+        if (props.poiData && props.poiData.length > 0) {
+            const temp = props.poiData;
+            setPoiData(temp); // Format: lat long
+            setFuse(new Fuse(temp, options));
+            setSearchPattern(temp[curPoi - 1].name)
+        }
+        if (props.eventHourly && props.eventHourly.length > 0) {
+            const temp = props.eventHourly;
+            const dataByDate = mappingHourlyData(temp, "date");
+            const listOfDate = Object.keys(dataByDate);
+            setReformattedEventHourly(dataByDate);
+            setEventCurPoi(dataByDate[listOfDate[0]]);
+            setMinDay(temp[0].date);
+            setMaxDay(temp[temp.length - 1].date);
+        }
+        if (props.statHourly && props.statHourly.length > 0) {
+            const temp = props.statHourly;
+            const dataByDate = mappingHourlyData(temp, "date");
+            const listOfDate = Object.keys(dataByDate);
+            setReformattedStatHourly(dataByDate);
+            setStatCurPoi(dataByDate[listOfDate[0]]);
+            setstatMinDay(temp[0].date);
+            setstatMaxDay(temp[temp.length - 1].date);
+        }
+        if (props.eventDaily && props.eventDaily.length > 0) {
+            setEventDailyPoi(props.eventDaily)
+        }
+        if (props.statDaily && props.statDaily.length > 0) {
+            setStatDailyPoi(props.statDaily)
+        }
+        //loadAPI();
+    }, [props.poiData, props.eventHourly, props.statHourly, props.eventDaily, props.statDaily ]);
 
     return (
         <Container fluid>
@@ -159,19 +130,19 @@ export default function MainTable() {
                 </Row>
                 <br />
                 <Row>
-                    {dailyEventCurPoi ? <EventTable data={dailyEventCurPoi} curPoi = {curPoi} title={"Daily events"}/> : null}
+                    {dailyEventCurPoi ? <EventTable data={dailyEventCurPoi} curPoi={curPoi} title={"Daily events"} /> : null}
                 </Row>
                 <br />
                 <Row>
-                    {eventCurPoi ? <EventTable data={eventCurPoi} min={minday} max={maxday} curPoi = {curPoi} hourly repopulateRecall={repopulateDateData} title={"Hourly events"}/> : null}
+                    {eventCurPoi ? <EventTable data={eventCurPoi} min={minday} max={maxday} curPoi={curPoi} hourly repopulateRecall={repopulateDateData} title={"Hourly events"} /> : null}
                 </Row>
                 <br />
                 <Row>
-                    {dailyStatCurPoi ? <StatTable data={dailyStatCurPoi} curPoi = {curPoi} title={"Daily stats"}/> : null}
+                    {dailyStatCurPoi ? <StatTable data={dailyStatCurPoi} curPoi={curPoi} title={"Daily stats"} /> : null}
                 </Row>
                 <br />
                 <Row>
-                    {statCurPoi? <StatTable data={statCurPoi}  min={statminday} max={statmaxday} curPoi = {curPoi} hourly repopulateRecall={repopulateStatDateData} title={"Hourly stats"}/>:null}
+                    {statCurPoi ? <StatTable data={statCurPoi} min={statminday} max={statmaxday} curPoi={curPoi} hourly repopulateRecall={repopulateStatDateData} title={"Hourly stats"} /> : null}
                 </Row>
             </Col>
         </Container>

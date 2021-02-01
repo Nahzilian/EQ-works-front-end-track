@@ -1,7 +1,6 @@
-import React, {useState, useEffect} from 'react'
+import React, { useState, useEffect } from 'react'
 import MultiAxisLine from './MultiAxisLine'
 import Spinner from 'react-bootstrap/Spinner'
-import axios from 'axios'
 import Col from 'react-bootstrap/Col'
 import Row from 'react-bootstrap/Row'
 import Container from 'react-bootstrap/Container'
@@ -22,7 +21,7 @@ function filledByDate(data) {
                 res.push(data[count])
                 count++;
             }
-        }else {
+        } else {
             res.push({
                 date: date,
                 events: 0,
@@ -40,7 +39,7 @@ function mappingHourlyData(data, key) {
         return rv;
     }, {})
 }
-export default function StatCharts() {
+export default function StatCharts(props) {
     const [statDataDaily, setStatDaily] = useState(null);
     const [statDataHourly, setStatHourly] = useState(null);
     const [reformattedHourly, setReformattedHourly] = useState(null);
@@ -50,44 +49,33 @@ export default function StatCharts() {
     const repopulateDateData = (key) => {
         setStatHourly(filledByDate(reformattedHourly[key]))
     }
-    const loadData = () => {
-        try {
-            axios.get("http://localhost:5555/stats/daily").then((res) => {
-                const temp = res.data;
-                setMinDay(temp[0].date)
-                setMaxDay(temp[temp.length - 1].date)
-                setStatDaily(temp)
-            })
-        } catch (err) {
-            console.error(err)
-        }
-        
-        try {
-            axios.get("http://localhost:5555/stats/hourly").then((res) => {
-                const temp = res.data;
-                // mappingHourlyData
-                const dataByDate = mappingHourlyData(temp, "date");
-                const listOfDate = Object.keys(dataByDate)
-                setReformattedHourly(dataByDate)
-                setStatHourly(dataByDate[listOfDate[0]])
-            })
-        } catch (err) {
-            console.error(err)
-        }
-    }
+   
     useEffect(() => {
-        loadData();
-    }, [])
+        if (props.statDaily && props.statDaily.length > 0) {
+            const temp = props.statDaily;
+            setMinDay(temp[0].date)
+            setMaxDay(temp[temp.length - 1].date)
+            setStatDaily(temp)
+        }
+
+        if (props.statHourly && props.statHourly.length > 0) {
+            const temp = props.statHourly;
+            const dataByDate = mappingHourlyData(temp, "date");
+            const listOfDate = Object.keys(dataByDate)
+            setReformattedHourly(dataByDate)
+            setStatHourly(dataByDate[listOfDate[0]])
+        }
+    }, [props.eventHourly, props.statHourly ])
     return (
         <Container fluid>
-            <br/>
+            <br />
             <Col>
                 <Row>
-                    {statDataDaily? <MultiAxisLine data = {statDataDaily} title={"Daily Statistic data"} labels={statDataDaily.map(x => x.date)}/>:  <Spinner animation="border" variant="info" />}
+                    {statDataDaily ? <MultiAxisLine data={statDataDaily} title={"Daily Statistic data"} labels={statDataDaily.map(x => x.date)} /> : <Spinner animation="border" variant="info" />}
                 </Row>
-                <br/>
+                <br />
                 <Row>
-                    {statDataHourly? <MultiAxisLine data = {statDataHourly} title={"Hourly Statistic data"} hourly min={minday} max={maxday} labels={statDataHourly.map(x => x.hour)} repopulateRecall={repopulateDateData}/>:  <Spinner animation="border" variant="info" />}
+                    {statDataHourly ? <MultiAxisLine data={statDataHourly} title={"Hourly Statistic data"} hourly min={minday} max={maxday} labels={statDataHourly.map(x => x.hour)} repopulateRecall={repopulateDateData} /> : <Spinner animation="border" variant="info" />}
                 </Row>
             </Col>
         </Container>

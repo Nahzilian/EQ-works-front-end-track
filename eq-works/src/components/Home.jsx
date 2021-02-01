@@ -23,6 +23,11 @@ function Dash() {
     const [eventDataHourly, setEventDataHourly] = useState(null);
     const [eventDataDaily, setEventDataDaily] = useState(null);
 
+    const [statDataHourlyTab, setStatDataHourlyTab] = useState(null);
+    const [statDataDailyTab, setStatDataDailyTab] = useState(null);
+    const [eventDataHourlyTab, setEventDataHourlyTab] = useState(null);
+    const [eventDataDailyTab, setEventDataDailyTab] = useState(null);
+
     const loadAPI = () => {
         try {
             axios.get("http://localhost:5555/poi").then((res) => {
@@ -33,7 +38,7 @@ function Dash() {
             console.error(err)
         }
         try {
-            axios.get(`http://localhost:5555/events/daily?loc=true`).then((res) => {
+            axios.get(`http://localhost:5555/events/daily?loc=${false}`).then((res) => {
                 const temp = res.data;
                 setEventDataDaily(temp)
             })
@@ -41,7 +46,7 @@ function Dash() {
             console.error(err);
         }
         try {
-            axios.get(`http://localhost:5555/stats/daily?loc=true`).then((res) => {
+            axios.get(`http://localhost:5555/stats/daily?loc=${false}`).then((res) => {
                 const temp = res.data;
                 setStatDataDaily(temp);
             })
@@ -49,7 +54,7 @@ function Dash() {
             console.error(err);
         }
         try {
-            axios.get(`http://localhost:5555/events/hourly?loc=true`).then((res) => {
+            axios.get(`http://localhost:5555/events/hourly?loc=${false}`).then((res) => {
                 const temp = res.data;
                 setEventDataHourly(temp)
 
@@ -58,14 +63,47 @@ function Dash() {
             console.error(err);
         }
         try {
-            axios.get(`http://localhost:5555/stats/hourly?loc=true`).then((res) => {
+            axios.get(`http://localhost:5555/stats/hourly?loc=${false}`).then((res) => {
+                const temp = res.data;
+                setStatDataHourlyTab(temp)
+            })
+        } catch (err) {
+            console.error(err)
+        }
+
+        try {
+            axios.get(`http://localhost:5555/events/daily?loc=${true}`).then((res) => {
+                const temp = res.data;
+                setEventDataDailyTab(temp)
+            })
+        } catch (err) {
+            console.error(err);
+        }
+        try {
+            axios.get(`http://localhost:5555/stats/daily?loc=${true}`).then((res) => {
+                const temp = res.data;
+                setStatDataDailyTab(temp);
+            })
+        } catch (err) {
+            console.error(err);
+        }
+        try {
+            axios.get(`http://localhost:5555/events/hourly?loc=${true}`).then((res) => {
+                const temp = res.data;
+                setEventDataHourlyTab(temp)
+
+            })
+        } catch (err) {
+            console.error(err);
+        }
+        try {
+            axios.get(`http://localhost:5555/stats/hourly?loc=${true}`).then((res) => {
                 const temp = res.data;
                 setStatDataHourly(temp)
             })
         } catch (err) {
             console.error(err)
         }
-
     }
 
     useEffect(() => {
@@ -136,12 +174,15 @@ function Dash() {
                                         eventHourly={eventDataHourly} /> : null}
                             </Tab.Pane>
                             <Tab.Pane eventKey="second">
-                                <MainTable />
+                            {poiData && statDataDailyTab && statDataHourlyTab && eventDataDailyTab && eventDataHourlyTab ?
+                                <MainTable poiData={poiData} statDaily={statDataDailyTab}
+                                statHourly={statDataHourlyTab}
+                                eventDaily={eventDataDailyTab}
+                                eventHourly={eventDataHourlyTab} /> : null}
                             </Tab.Pane>
                             <Tab.Pane eventKey="third">
                                 {poiData ? <MapMain poiData={poiData} /> : <Spinner animation="border" variant="info" />}
                             </Tab.Pane>
-
                         </Tab.Content>
                     </Col>
                 </Row>

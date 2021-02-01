@@ -16,7 +16,7 @@ export default function Charts(props) {
                     {props.eventDaily && props.eventHourly?<EventCharts eventDaily={props.eventDaily} eventHourly={props.eventHourly}/>: <Spinner animation="border" variant="info" />}
                 </Tab>
                 <Tab eventKey="stat" title="Statistic">
-                    <StatCharts />
+                    {props.statDaily && props.statHourly?<StatCharts statDaily={props.statDaily} statHourly={props.statHourly} />: <Spinner animation="border" variant="info" />}
                 </Tab>
             </Tabs>
         </Container>
