@@ -52,7 +52,7 @@ function Dash() {
             axios.get(`http://localhost:5555/events/hourly?loc=true`).then((res) => {
                 const temp = res.data;
                 setEventDataHourly(temp)
-                
+
             })
         } catch (err) {
             console.error(err);
@@ -70,7 +70,7 @@ function Dash() {
 
     useEffect(() => {
         loadAPI();
-    },[])
+    }, [])
 
     return (
         <Container fluid>
@@ -96,21 +96,9 @@ function Dash() {
                                     </Row>
                                 </Nav.Link>
                             </Nav.Item>
+
                             <Nav.Item>
                                 <Nav.Link eventKey="second">
-                                    <Row>
-                                        <Col sm={2}>
-                                            <i className="fas fa-map-marked-alt"></i>
-                                        </Col>
-                                        <Col>
-                                            <strong>Map</strong>
-                                        </Col>
-                                    </Row>
-                                </Nav.Link>
-
-                            </Nav.Item>
-                            <Nav.Item>
-                                <Nav.Link eventKey="third">
                                     <Row>
                                         <Col sm={2}>
                                             <i className="fas fa-table"></i>
@@ -122,20 +110,38 @@ function Dash() {
                                 </Nav.Link>
 
                             </Nav.Item>
+                            <Nav.Item>
+                                <Nav.Link eventKey="third">
+                                    <Row>
+                                        <Col sm={2}>
+                                            <i className="fas fa-map-marked-alt"></i>
+                                        </Col>
+                                        <Col>
+                                            <strong>Map</strong>
+                                        </Col>
+                                    </Row>
+                                </Nav.Link>
+
+                            </Nav.Item>
                         </Nav>
                     </Col>
                     <Col sm={10} className="tab-content-wrapper">
 
                         <Tab.Content>
                             <Tab.Pane eventKey="first">
-                                <Charts />
+                                {statDataDaily && statDataHourly && eventDataDaily && eventDataHourly ?
+                                    <Charts statDaily={statDataDaily}
+                                        statHourly={statDataHourly}
+                                        eventDaily={eventDataDaily}
+                                        eventHourly={eventDataHourly} /> : null}
                             </Tab.Pane>
                             <Tab.Pane eventKey="second">
-                                {poiData? <MapMain poiData={poiData}/>:<Spinner animation="border" variant="info" />}
-                            </Tab.Pane>
-                            <Tab.Pane eventKey="third">
                                 <MainTable />
                             </Tab.Pane>
+                            <Tab.Pane eventKey="third">
+                                {poiData ? <MapMain poiData={poiData} /> : <Spinner animation="border" variant="info" />}
+                            </Tab.Pane>
+
                         </Tab.Content>
                     </Col>
                 </Row>
