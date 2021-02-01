@@ -81,3 +81,18 @@ body{
     background-color: #d6186d !important;
     color:white !important;
 }
+
+.cluster-marker {
+    color: #fff;
+    background: #d6186d;
+    border-radius: 50%;
+    padding: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .poi-marker {
+    background: none;
+    border: none;
+  }

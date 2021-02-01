@@ -40,7 +40,7 @@ function filledByDate(data) {
                 res.push(data[count])
                 count++;
             }
-        }else {
+        } else {
             res.push({
                 date: date,
                 events: 0,
@@ -106,7 +106,7 @@ export default function EventCharts() {
 
     return (
         <Container fluid>
-            <br/>
+            <br />
             <Col sm={12}>
                 <Row>
                     <Col>
@@ -128,6 +128,9 @@ export default function EventCharts() {
                 <br />
                 <Row sm={12}>
                     <Col>{eventDataByTime ? <VerticalBar data={eventDataByTime.map(x => x.events)} labels={eventDataByTime.map(x => x.date)} title={"Events by hour"} repopulateRecall={repopulateData} hourly /> : <Spinner animation="border" variant="info" />}</Col>
+                </Row>
+                <br />
+                <Row sm={12}>
                     <Col>{eventDataHourly ? <LineChart data={eventDataHourly.map(x => x.events)} labels={eventDataHourly.map(x => x.hour)} title={"Events data hourly"} repopulateRecall={repopulateDateData} min={minday} max={maxday} daily /> : <Spinner animation="border" variant="info" />}</Col>
                 </Row>
                 <br />
