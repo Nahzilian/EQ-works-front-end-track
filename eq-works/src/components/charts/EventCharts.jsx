@@ -97,17 +97,22 @@ export default function EventCharts(props) {
             <br />
             <Col sm={12}>
                 <Row>
-                    <Col>
+                    <Col lg={12} xl={6}>
                         <div className="chart-wrapper">
-                            Avg events/week: {weeklyAvg}
+                            <Col>
+                                <Row><Col className="additional-data">Average events:</Col><Col>{weeklyAvg}</Col></Row>
+                                <Row><Col>(Per week) </Col> </Row>
+                            </Col>
                         </div>
                     </Col>
-                    <Col>
+                    <Col lg={12} xl={6}>
                         <div className="chart-wrapper">
                             {dayWithMax ?
                                 <>
-                                    Popular days of event: {dayWithMax.date ? dayWithMax.date : null} <br />
-                                    Events: {dayWithMax.events ? dayWithMax.events : null}
+                                    <Col>
+                                        <Row><Col className="additional-data">Most popular day:</Col> <Col>{dayWithMax.date ? dayWithMax.date : null}</Col></Row>
+                                        <Row><Col className="additional-data">Events: </Col> <Col>{dayWithMax.events ? dayWithMax.events : null}</Col></Row>
+                                    </Col>
                                 </> : null}
                         </div>
                     </Col>
@@ -115,15 +120,15 @@ export default function EventCharts(props) {
                 </Row>
                 <br />
                 <Row sm={12}>
-                    <Col>{eventDataByTime ? <VerticalBar data={eventDataByTime.map(x => x.events)} labels={eventDataByTime.map(x => x.date)} title={"Events by hour"} repopulateRecall={repopulateData} hourly /> : <Spinner animation="border" variant="info" />}</Col>
+                    <Col>{eventDataByTime ? <VerticalBar data={eventDataByTime.map(x => x.events)} labels={eventDataByTime.map(x => x.date)} title={"Events data comparing by hours"} repopulateRecall={repopulateData} hourly /> : <Spinner animation="border" variant="info" />}</Col>
                 </Row>
                 <br />
                 <Row sm={12}>
-                    <Col>{eventDataHourly ? <LineChart data={eventDataHourly.map(x => x.events)} labels={eventDataHourly.map(x => x.hour)} title={"Events data hourly"} repopulateRecall={repopulateDateData} min={minday} max={maxday} daily /> : <Spinner animation="border" variant="info" />}</Col>
+                    <Col>{eventDataHourly ? <LineChart data={eventDataHourly.map(x => x.events)} labels={eventDataHourly.map(x => x.hour)} title={"Hourly events data"} repopulateRecall={repopulateDateData} min={minday} max={maxday} daily /> : <Spinner animation="border" variant="info" />}</Col>
                 </Row>
                 <br />
                 <Row sm={12}>
-                    <Col>{eventDataDaily ? <VerticalBar data={eventDataDaily.map(x => x.events)} labels={eventDataDaily.map(x => x.date)} title={"Events data daily"} /> : <Spinner animation="border" variant="info" />}</Col>
+                    <Col>{eventDataDaily ? <VerticalBar data={eventDataDaily.map(x => x.events)} labels={eventDataDaily.map(x => x.date)} title={"Daily events data"} /> : <Spinner animation="border" variant="info" />}</Col>
                 </Row>
             </Col>
         </Container>

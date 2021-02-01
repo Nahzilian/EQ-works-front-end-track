@@ -74,7 +74,7 @@ export default function StatTable(props) {
         <div className = "chart-wrapper">
             <Row>
                 {props.title ? <Col>
-                    <h4>{props.title}</h4>
+                    <h3>{props.title}</h3>
                 </Col> : null}
                 <Col style={{textAlign:"right"}}>
                 {props.hourly ? 

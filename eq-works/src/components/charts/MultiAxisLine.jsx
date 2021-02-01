@@ -84,7 +84,7 @@ export default function MultiAxisLine(props) {
                         : null}
                 </Row>
             </div>
-            <Line data={data} options={options} width={"100vw"} height={"25vh"} />
+            <Line data={data} options={options} width={"100vw"} height={"70"} />
         </div>
     )
 }
