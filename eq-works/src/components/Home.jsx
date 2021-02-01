@@ -1,5 +1,5 @@
-import React from 'react'
-
+import React, { useState, useEffect } from 'react'
+import axios from 'axios'
 // React bootstrap
 import Container from 'react-bootstrap/Container'
 import Col from 'react-bootstrap/Col'
@@ -13,8 +13,65 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import Charts from './charts/Charts'
 import MapMain from './map/MapMain'
 import MainTable from './tables/MainTable'
+import Spinner from 'react-bootstrap/Spinner'
+
 
 function Dash() {
+    const [poiData, setPoiData] = useState(null);
+    const [statDataHourly, setStatDataHourly] = useState(null);
+    const [statDataDaily, setStatDataDaily] = useState(null);
+    const [eventDataHourly, setEventDataHourly] = useState(null);
+    const [eventDataDaily, setEventDataDaily] = useState(null);
+
+    const loadAPI = () => {
+        try {
+            axios.get("http://localhost:5555/poi").then((res) => {
+                const temp = res.data;
+                setPoiData(temp); // Format: lat long
+            })
+        } catch (err) {
+            console.error(err)
+        }
+        try {
+            axios.get(`http://localhost:5555/events/daily?loc=true`).then((res) => {
+                const temp = res.data;
+                setEventDataDaily(temp)
+            })
+        } catch (err) {
+            console.error(err);
+        }
+        try {
+            axios.get(`http://localhost:5555/stats/daily?loc=true`).then((res) => {
+                const temp = res.data;
+                setStatDataDaily(temp);
+            })
+        } catch (err) {
+            console.error(err);
+        }
+        try {
+            axios.get(`http://localhost:5555/events/hourly?loc=true`).then((res) => {
+                const temp = res.data;
+                setEventDataHourly(temp)
+                
+            })
+        } catch (err) {
+            console.error(err);
+        }
+        try {
+            axios.get(`http://localhost:5555/stats/hourly?loc=true`).then((res) => {
+                const temp = res.data;
+                setStatDataHourly(temp)
+            })
+        } catch (err) {
+            console.error(err)
+        }
+
+    }
+
+    useEffect(() => {
+        loadAPI();
+    },[])
+
     return (
         <Container fluid>
             <Tab.Container id="left-tabs-example" defaultActiveKey="first">
@@ -74,7 +131,7 @@ function Dash() {
                                 <Charts />
                             </Tab.Pane>
                             <Tab.Pane eventKey="second">
-                                <MapMain />
+                                {poiData? <MapMain poiData={poiData}/>:<Spinner animation="border" variant="info" />}
                             </Tab.Pane>
                             <Tab.Pane eventKey="third">
                                 <MainTable />

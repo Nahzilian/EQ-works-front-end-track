@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react'
+import React, { useState, useRef } from 'react'
 import useSwr from "swr";
 import ReactMapGL, { Marker, Popup, FlyToInterpolator } from 'react-map-gl';
 import useSupercluster from "use-supercluster";
-import InfoSVG from './assets/info.svg'
 import Container from 'react-bootstrap/Container'
 
 export default function PoiMap(props) {
@@ -15,7 +14,7 @@ export default function PoiMap(props) {
   });
   const mapRef = useRef();
 
-  const points = props.data.map(elem => ({
+  const points = props.data && props.data.length > 0? props.data.map(elem => ({
     type: "Feature",
     properties: { cluster: false, elemId: elem.poi_id, name: elem.name },
     geometry: {
@@ -25,9 +24,8 @@ export default function PoiMap(props) {
         parseFloat(elem.lat)
       ]
     }
-  }));
-
-  const bounds = mapRef.current
+  })): [];
+  const bounds = mapRef.current && mapRef.current.getMap()
     ? mapRef.current
       .getMap()
       .getBounds()
