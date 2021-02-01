@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import StatCharts from './StatCharts'
 import EventCharts from './EventCharts'
 import Spinner from 'react-bootstrap/Spinner'

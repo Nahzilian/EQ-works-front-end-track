@@ -43,7 +43,7 @@ export default function VerticalBar(props) {
             }
             setVarTime(temp)
         }
-    }, [])
+    }, [props.hourly])
 
 
 

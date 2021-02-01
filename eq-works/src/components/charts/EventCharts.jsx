@@ -82,7 +82,7 @@ export default function EventCharts(props) {
             setEventHourly(filledByDate(dataByDate[listOfDate[0]]));
             setDataByTime(mappingByHour(dataByDate, 0))
         }
-    }, [props.eventDaily, props.statDaily])
+    }, [props.eventDaily, props.eventHourly])
 
     const repopulateData = (value) => {
         setDataByTime(mappingByHour(reformattedHourly, value))

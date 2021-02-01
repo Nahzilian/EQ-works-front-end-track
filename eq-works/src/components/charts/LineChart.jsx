@@ -1,5 +1,4 @@
 import React, {useState} from 'react'
-import { Bar } from '@reactchartjs/react-chart.js'
 import { Line } from '@reactchartjs/react-chart.js'
 
 import Row from 'react-bootstrap/Row'

@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios'
 import Row from 'react-bootstrap/Row'
 import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
-import Spinner from 'react-bootstrap/Spinner'
 import EventTable from './EventTable'
 import StatTable from './StatTable'
 import FormControl from 'react-bootstrap/FormControl'
@@ -105,7 +103,7 @@ export default function MainTable(props) {
             setStatDailyPoi(props.statDaily)
         }
         //loadAPI();
-    }, [props.poiData, props.eventHourly, props.statHourly, props.eventDaily, props.statDaily ]);
+    }, [props.poiData, props.eventHourly, props.statHourly, props.eventDaily, props.statDaily,curPoi ]);
 
     return (
         <Container fluid>

@@ -65,7 +65,7 @@ export default function StatCharts(props) {
             setReformattedHourly(dataByDate)
             setStatHourly(dataByDate[listOfDate[0]])
         }
-    }, [props.eventHourly, props.statHourly ])
+    }, [props.statDaily, props.statHourly ])
     return (
         <Container fluid>
             <br />

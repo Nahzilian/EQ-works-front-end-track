@@ -1,9 +1,9 @@
 import React, { useState, useRef } from 'react'
-import useSwr from "swr";
-import ReactMapGL, { Marker, Popup, FlyToInterpolator } from 'react-map-gl';
+// import useSwr from "swr";
+import ReactMapGL, { Marker, FlyToInterpolator } from 'react-map-gl';
 import useSupercluster from "use-supercluster";
 import Container from 'react-bootstrap/Container'
-
+import 'mapbox-gl/dist/mapbox-gl.css'
 export default function PoiMap(props) {
   const [viewport, setViewport] = useState({
     latitude: 48.2270,
