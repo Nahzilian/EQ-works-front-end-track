@@ -7,9 +7,6 @@ function App() {
     <Router>
       <Switch>
         <Route exact path='/' component={Home} />
-        <Route render={function () {
-          return <p>Not found</p>
-        }} />
       </Switch>
     </Router>
   );
