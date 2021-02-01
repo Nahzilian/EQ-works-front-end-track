@@ -7,13 +7,14 @@ import Row from 'react-bootstrap/Row'
 import Tab from 'react-bootstrap/Tab'
 import Nav from 'react-bootstrap/Nav'
 import { withRouter } from "react-router";
+import Spinner from 'react-bootstrap/Spinner'
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Customed Bootstrap react components
 import Charts from './charts/Charts'
 import MapMain from './map/MapMain'
 import MainTable from './tables/MainTable'
-import Spinner from 'react-bootstrap/Spinner'
+import AlertBootStrap from './AlertBootStrap'
 
 
 function Dash() {
@@ -27,7 +28,7 @@ function Dash() {
     const [statDataDailyTab, setStatDataDailyTab] = useState(null);
     const [eventDataHourlyTab, setEventDataHourlyTab] = useState(null);
     const [eventDataDailyTab, setEventDataDailyTab] = useState(null);
-
+    const [show, setShow] = useState(false)
     const loadAPI = () => {
         try {
             axios.get("http://localhost:5555/poi").then((res) => {
@@ -35,6 +36,7 @@ function Dash() {
                 setPoiData(temp); // Format: lat long
             })
         } catch (err) {
+            setShow(true)
             console.error(err)
         }
         try {
@@ -43,6 +45,7 @@ function Dash() {
                 setEventDataDaily(temp)
             })
         } catch (err) {
+            setShow(true)
             console.error(err);
         }
         try {
@@ -51,6 +54,7 @@ function Dash() {
                 setStatDataDaily(temp);
             })
         } catch (err) {
+            setShow(true)
             console.error(err);
         }
         try {
@@ -60,6 +64,7 @@ function Dash() {
 
             })
         } catch (err) {
+            setShow(true)
             console.error(err);
         }
         try {
@@ -68,6 +73,7 @@ function Dash() {
                 setStatDataHourlyTab(temp)
             })
         } catch (err) {
+            setShow(true)
             console.error(err)
         }
 
@@ -77,6 +83,7 @@ function Dash() {
                 setEventDataDailyTab(temp)
             })
         } catch (err) {
+            setShow(true)
             console.error(err);
         }
         try {
@@ -85,6 +92,7 @@ function Dash() {
                 setStatDataDailyTab(temp);
             })
         } catch (err) {
+            setShow(true)
             console.error(err);
         }
         try {
@@ -94,6 +102,7 @@ function Dash() {
 
             })
         } catch (err) {
+            setShow(true)
             console.error(err);
         }
         try {
@@ -102,7 +111,9 @@ function Dash() {
                 setStatDataHourly(temp)
             })
         } catch (err) {
+            setShow(true)
             console.error(err)
+            console.log("here")
         }
     }
 
@@ -164,9 +175,10 @@ function Dash() {
                         </Nav>
                     </Col>
                     <Col sm={10} className="tab-content-wrapper">
-
                         <Tab.Content>
                             <Tab.Pane eventKey="first">
+                                {!show && !poiData && !statDataDailyTab && !statDataHourlyTab && !eventDataDailyTab && !eventDataHourlyTab ? 
+                                <AlertBootStrap setShow={setShow} /> : null}
                                 {statDataDaily && statDataHourly && eventDataDaily && eventDataHourly ?
                                     <Charts statDaily={statDataDaily}
                                         statHourly={statDataHourly}
@@ -174,13 +186,17 @@ function Dash() {
                                         eventHourly={eventDataHourly} /> : null}
                             </Tab.Pane>
                             <Tab.Pane eventKey="second">
-                            {poiData && statDataDailyTab && statDataHourlyTab && eventDataDailyTab && eventDataHourlyTab ?
-                                <MainTable poiData={poiData} statDaily={statDataDailyTab}
-                                statHourly={statDataHourlyTab}
-                                eventDaily={eventDataDailyTab}
-                                eventHourly={eventDataHourlyTab} /> : null}
+                                {!show && !poiData && !statDataDailyTab && !statDataHourlyTab && !eventDataDailyTab && !eventDataHourlyTab ? 
+                                <AlertBootStrap setShow={setShow} /> : null}
+                                {poiData && statDataDailyTab && statDataHourlyTab && eventDataDailyTab && eventDataHourlyTab ?
+                                    <MainTable poiData={poiData} statDaily={statDataDailyTab}
+                                        statHourly={statDataHourlyTab}
+                                        eventDaily={eventDataDailyTab}
+                                        eventHourly={eventDataHourlyTab} /> : null}
                             </Tab.Pane>
                             <Tab.Pane eventKey="third">
+                                {!show && !poiData && !statDataDailyTab && !statDataHourlyTab && !eventDataDailyTab && !eventDataHourlyTab ? 
+                                <AlertBootStrap setShow={setShow} /> : null}
                                 {poiData ? <MapMain poiData={poiData} /> : <Spinner animation="border" variant="info" />}
                             </Tab.Pane>
                         </Tab.Content>
