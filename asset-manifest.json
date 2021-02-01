@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/EQ-works-front-end-track/static/css/main.0a895e47.chunk.css",
-    "main.js": "/EQ-works-front-end-track/static/js/main.892ee02e.chunk.js",
-    "main.js.map": "/EQ-works-front-end-track/static/js/main.892ee02e.chunk.js.map",
+    "main.js": "/EQ-works-front-end-track/static/js/main.89b685d1.chunk.js",
+    "main.js.map": "/EQ-works-front-end-track/static/js/main.89b685d1.chunk.js.map",
     "runtime-main.js": "/EQ-works-front-end-track/static/js/runtime-main.3605bd2c.js",
     "runtime-main.js.map": "/EQ-works-front-end-track/static/js/runtime-main.3605bd2c.js.map",
     "static/css/2.75b3496b.chunk.css": "/EQ-works-front-end-track/static/css/2.75b3496b.chunk.css",
@@ -20,6 +20,6 @@
     "static/css/2.75b3496b.chunk.css",
     "static/js/2.0f322968.chunk.js",
     "static/css/main.0a895e47.chunk.css",
-    "static/js/main.892ee02e.chunk.js"
+    "static/js/main.89b685d1.chunk.js"
   ]
 }
