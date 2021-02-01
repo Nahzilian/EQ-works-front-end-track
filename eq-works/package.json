@@ -13,8 +13,11 @@
     "fuse.js": "^6.4.6",
     "pigeon-maps": "^0.17.0",
     "react-bootstrap": "^1.4.3",
+    "react-map-gl": "^6.1.1",
     "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.1",
+    "swr": "^0.4.1",
+    "use-supercluster": "^0.2.9",
     "web-vitals": "^0.2.4"
   },
   "scripts": {
