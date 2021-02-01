@@ -124,7 +124,7 @@ export default function MainTable(props) {
                         </Dropdown.Toggle>
                         <Dropdown.Menu style={{ width: "100%" }} >
                             {searched.length > 0 ? searched.map(x => <Dropdown.Item className="results" onSelect={() => setCurPoi(x.item.poi_id)}>{x.item.name}</Dropdown.Item>) :
-                                poiData ? poiData.map(x => <Dropdown.Item className="results" onSelect={() => setCurPoi(x.poi_id)}>{x.name}</Dropdown.Item>) : null}
+                                poiData ? poiData.map((x,index) => <Dropdown.Item key = {index} className="results" onSelect={() => setCurPoi(x.poi_id)}>{x.name}</Dropdown.Item>) : null}
                         </Dropdown.Menu>
                     </Dropdown>
                 </Row>

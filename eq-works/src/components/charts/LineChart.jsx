@@ -9,7 +9,6 @@ export default function LineChart(props) {
     const [date, onChangeDate] = useState(props.min);
     const dateSelector = (val) => {
         onChangeDate(val);
-        console.log(val)
         props.repopulateRecall(val)
     }
     const data = {
