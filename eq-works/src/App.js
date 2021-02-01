@@ -6,7 +6,7 @@ function App() {
   return (
     <Router>
       <Switch>
-        <Route exact path='/' component={Home} />
+        <Route exact path='/EQ-works-front-end-track' component={Home} />
       </Switch>
     </Router>
   );

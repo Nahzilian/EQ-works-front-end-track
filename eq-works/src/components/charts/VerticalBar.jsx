@@ -27,9 +27,7 @@ export default function VerticalBar(props) {
                 label: '# of Events/hourly',
                 data: props.data,
                 backgroundColor: 'rgba(255, 99, 132, 0.2)',
-                borderColor: [
-                    'rgba(255, 99, 132, 1)',
-                ],
+                borderColor: 'rgba(255, 99, 132, 1)',
                 borderWidth: 1,
             },
         ],

@@ -126,18 +126,13 @@ function Dash() {
         }
     }
 
-    const tempTEst = (val) => {
-        console.log(val)
-        setSelectedKey(val)
-    }
-
     useEffect(() => {
         loadAPI();
     }, [])
 
     return (
         <Container fluid>
-            <Tab.Container id="left-tabs-example" defaultActiveKey={selectedKey} onSelect={(skey) => tempTEst(skey)}>
+            <Tab.Container id="left-tabs-example" defaultActiveKey={selectedKey} onSelect={(skey) => setSelectedKey(skey)}>
                 <Row>
                     <Col sm={12} md={3} lg={3} xl={2} className="side-bar fixed-side-bar">
                         <div>
