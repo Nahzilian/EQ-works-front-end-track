@@ -9,6 +9,9 @@ body{
     top:0;
     left: 0;
 }
+.invisible-blk{
+    display: none;
+}
 .side-bar{
     height: 100vh;
     -webkit-box-shadow: 4px 5px 8px -2px rgba(145,145,145,1);
@@ -19,6 +22,19 @@ body{
     color:rgb(26, 26, 26);
 }
 
+@media only screen and (max-width: 767px){
+    .side-bar{
+        display: none;
+    }
+    .invisible-blk{
+        background-color: white;
+        display: block;
+        position: sticky !important;
+        top:0;
+        left: 0;
+        z-index:100;
+    }
+}
 
 .btn-primary ,.nav-pills .nav-link.active{
     background-color: #d6186d !important;
@@ -95,4 +111,13 @@ body{
   .poi-marker {
     background: none;
     border: none;
+  }
+
+  .additional-data{
+      font-size: 1.2rem;
+      font-weight: bold;
+  }
+
+  .navigate{
+      width: 100%;
   }

@@ -1,5 +1,4 @@
 import React, {useState} from 'react'
-import { Bar } from '@reactchartjs/react-chart.js'
 import { Line } from '@reactchartjs/react-chart.js'
 
 import Row from 'react-bootstrap/Row'
@@ -9,7 +8,6 @@ export default function LineChart(props) {
     const [date, onChangeDate] = useState(props.min);
     const dateSelector = (val) => {
         onChangeDate(val);
-        console.log(val)
         props.repopulateRecall(val)
     }
     const data = {
