@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react'
-// import useSwr from "swr";
+import useSwr from "swr";
 import ReactMapGL, { Marker, FlyToInterpolator } from 'react-map-gl';
 import useSupercluster from "use-supercluster";
 import Container from 'react-bootstrap/Container'
